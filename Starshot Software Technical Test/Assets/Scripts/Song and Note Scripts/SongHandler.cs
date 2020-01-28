@@ -1,23 +1,33 @@
-﻿using System.Collections;
+﻿using EventSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SongHandler : MonoBehaviour
 {
+    #region Properties
     public float SongTempo => tempo;
+    #endregion
 
+    #region Serialized Private Members
+    [Header("Song Properties")]
+    [SerializeField] private SongData songData = null;
     [SerializeField] private bool hasSongStarted = false;
 
-    [SerializeField] private AudioClip clip = null;
-    [SerializeField] private float bpm = 0;
+    [Header("Song Events")]
+    [Space(10)]
+    [SerializeField] private GameEvent onSongEnd;
+    #endregion
 
+    #region Private Members
     private float tempo = 0;
     private AudioSource source = null;
-    
+    #endregion
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        source.clip = clip;
+        source.clip = songData.Clip;
     }
     
     private void Update()
@@ -26,6 +36,11 @@ public class SongHandler : MonoBehaviour
         if (!hasSongStarted)
         {
             return;
+        }
+
+        if(!source.isPlaying)
+        {
+            StopSong();
         }
     }
 
@@ -40,7 +55,7 @@ public class SongHandler : MonoBehaviour
         source.Play();
 
         hasSongStarted = true;
-        tempo = bpm / 60;
+        tempo = songData.BPM / 60;
     }
 
     public void StopSong()
@@ -51,6 +66,7 @@ public class SongHandler : MonoBehaviour
         }
 
         source.Stop();
+        onSongEnd.Raise();
 
         hasSongStarted = false;
         tempo = 0;

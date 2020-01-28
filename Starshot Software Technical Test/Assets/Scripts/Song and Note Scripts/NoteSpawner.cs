@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
+    #region Serialized Private Members
+    [Header("Spawning Properties")]
     [SerializeField] private GameObject notePrefab = null;
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
     [SerializeField] private SongHandler songHandler = null;
     [SerializeField] private bool isSpawning = false;
 
+    [Header("Note Properties")]
+    [Space(10)]
     [SerializeField] private int noteDensity = 1;
     [SerializeField] private float noteSpeed = 1;
+    #endregion
 
+    #region Private Members
     private float songTempo = 0;
     private float timeFromLastSpawn = 0;
     private float spawnTimer = 0;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -36,11 +43,7 @@ public class NoteSpawner : MonoBehaviour
         if (!isSpawning)
             return;
 
-        //if (songTempo == 0)
-        {
-            songTempo = songHandler.SongTempo / noteDensity;
-        }
-
+        songTempo = songHandler.SongTempo / noteDensity;
 
         if (spawnTimer >= timeFromLastSpawn)
         {
@@ -49,7 +52,7 @@ public class NoteSpawner : MonoBehaviour
             //Spawn note
 
             int randIndex = Random.Range(0, spawnPoints.Count);
-            GameObject note = Instantiate(notePrefab, transform);
+            GameObject note = Instantiate(notePrefab, spawnPoints[randIndex]);
             note.transform.position = spawnPoints[randIndex].position;
 
             note.GetComponent<Note>().Speed = (songHandler.SongTempo / noteDensity) * noteSpeed;
@@ -58,11 +61,6 @@ public class NoteSpawner : MonoBehaviour
         {
             spawnTimer += Time.deltaTime;
         }
-
-
-
-
-        // Spawn here
     }
 
     public void StartSpawning()
@@ -103,7 +101,7 @@ public class NoteSpawner : MonoBehaviour
                     noteDensity += 2;
                     noteSpeed += 0.5f;
                 }
-                else if(noteSpeed < 6)
+                else if (noteSpeed < 6)
                 {
                     noteSpeed += 1;
                 }
@@ -113,7 +111,6 @@ public class NoteSpawner : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-
     private void OnDrawGizmos()
     {
         foreach (Transform spawnPoint in spawnPoints)
@@ -122,6 +119,5 @@ public class NoteSpawner : MonoBehaviour
             Gizmos.DrawWireSphere(spawnPoint.position, 5);
         }
     }
-
 #endif
 }
