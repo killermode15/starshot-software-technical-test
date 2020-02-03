@@ -7,6 +7,7 @@ public class SongHandler : MonoBehaviour
 {
     #region Properties
     public float SongTempo => tempo;
+    public AudioClip Clip => songData.Clip;
     #endregion
 
     #region Serialized Private Members
@@ -14,9 +15,13 @@ public class SongHandler : MonoBehaviour
     [SerializeField] private SongData songData = null;
     [SerializeField] private bool hasSongStarted = false;
 
+    [Header("References")]
+    [Space(10)]
+    [SerializeField] private GameManager gameManager;
+
     [Header("Song Events")]
     [Space(10)]
-    [SerializeField] private GameEvent onSongEnd;
+    [SerializeField] private GameEvent onSongEnd = null;
     #endregion
 
     #region Private Members
@@ -24,7 +29,7 @@ public class SongHandler : MonoBehaviour
     private AudioSource source = null;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         source = GetComponent<AudioSource>();
         source.clip = songData.Clip;
@@ -36,6 +41,11 @@ public class SongHandler : MonoBehaviour
         if (!hasSongStarted)
         {
             return;
+        }
+
+        if (source.mute != gameManager.IsGameMuted)
+        {
+            source.mute = gameManager.IsGameMuted;
         }
 
         if(!source.isPlaying)

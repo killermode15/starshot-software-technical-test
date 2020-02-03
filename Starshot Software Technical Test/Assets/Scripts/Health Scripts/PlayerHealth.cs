@@ -16,8 +16,8 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Health Events")]
     [Space(10)]
-    [SerializeField] private GameEvent onHealthUpdate;
-    [SerializeField] private GameEvent onHealthFinished;
+    [SerializeField] private GameEvent onHealthUpdate = null;
+    [SerializeField] private GameEvent onHealthFinished = null;
     #endregion
 
     #region Private Members

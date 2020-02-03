@@ -5,7 +5,9 @@ using UnityEngine;
 public class NoteSpawner : MonoBehaviour
 {
     #region Serialized Private Members
+    
     [Header("Spawning Properties")]
+    [Space(10)]
     [SerializeField] private GameObject notePrefab = null;
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
     [SerializeField] private SongHandler songHandler = null;
@@ -21,12 +23,15 @@ public class NoteSpawner : MonoBehaviour
     private float songTempo = 0;
     private float timeFromLastSpawn = 0;
     private float spawnTimer = 0;
+    private List<GameObject> notesSpawned = new List<GameObject>();
     #endregion
+
+    private int counter = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     private void OnValidate()
@@ -43,6 +48,8 @@ public class NoteSpawner : MonoBehaviour
         if (!isSpawning)
             return;
 
+        notesSpawned.RemoveAll(x => x == null);
+
         songTempo = songHandler.SongTempo / noteDensity;
 
         if (spawnTimer >= timeFromLastSpawn)
@@ -53,9 +60,11 @@ public class NoteSpawner : MonoBehaviour
 
             int randIndex = Random.Range(0, spawnPoints.Count);
             GameObject note = Instantiate(notePrefab, spawnPoints[randIndex]);
+            notesSpawned.Add(note);
             note.transform.position = spawnPoints[randIndex].position;
 
             note.GetComponent<Note>().Speed = (songHandler.SongTempo / noteDensity) * noteSpeed;
+            counter++;
         }
         else
         {
@@ -69,6 +78,7 @@ public class NoteSpawner : MonoBehaviour
         timeFromLastSpawn = Time.time;
         spawnTimer = Time.time - songTempo;
 
+        StartCoroutine(SpawningTimer_CR());
         StartCoroutine(DifficultyTimer_CR());
 
     }
@@ -80,7 +90,25 @@ public class NoteSpawner : MonoBehaviour
         songTempo = 0;
         spawnTimer = 0;
 
+        noteDensity = 2;
+        noteSpeed = 2;
+
+        StopCoroutine(SpawningTimer_CR());
         StopCoroutine(DifficultyTimer_CR());
+    }
+
+    public void CleanupNotes()
+    {
+        for (int i = notesSpawned.Count - 1; i >= 0; i--)
+        {
+            Destroy(notesSpawned[i]);
+        }
+    }
+
+    private IEnumerator SpawningTimer_CR()
+    {
+        yield return new WaitForSeconds(songHandler.Clip.length - 3f);
+        StopSpawning();
     }
 
 

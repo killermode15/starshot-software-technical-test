@@ -34,13 +34,13 @@ public class GameManager : MonoBehaviour
 
     #region Serialize Private Members
     [Header("Game Properties")]
-    [SerializeField] private bool isGameMuted;
-    [SerializeField] private bool hasGameStarted;
+    [SerializeField] private bool isGameMuted = false;
+    [SerializeField] private bool hasGameStarted = false;
 
     [Header("Game Events")]
     [Space(10)]
-    [SerializeField] private UnityEvent onGameStart;
-    [SerializeField] private UnityEvent onGameEnd;
+    [SerializeField] private UnityEvent onGameStart = null;
+    [SerializeField] private UnityEvent onGameEnd = null;
     #endregion
 
     private void Awake()
@@ -78,5 +78,10 @@ public class GameManager : MonoBehaviour
 
         hasGameStarted = false;
         onGameEnd.Invoke();
+    }
+
+    public void ToggleMute()
+    {
+        isGameMuted = !isGameMuted;
     }
 }

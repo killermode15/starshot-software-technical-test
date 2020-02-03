@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EventSystem;
+using UnityEngine.Events;
+
 
 public class TouchHandler : MonoBehaviour
 {
+    #region Serialized Private Properties
+    [Header("Touch Events")]
     [SerializeField] private GameEvent onLeftSideTouched = null;
     [SerializeField] private GameEvent onRightSideTouched = null;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    #endregion
+    
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +38,6 @@ public class TouchHandler : MonoBehaviour
             else
             {
                 onRightSideTouched.Raise();
-                Debug.Log("Right is pressed");
             }
 
         }

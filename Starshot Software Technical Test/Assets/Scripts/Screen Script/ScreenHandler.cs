@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class ScreenHandler : MonoBehaviour
 {
+    #region Serialized Private Members
+    [Header("References")]
     [SerializeField] private GameScreen mainScreen = null;
     [SerializeField] private List<GameScreen> screens = new List<GameScreen>();
+    #endregion
 
+    #region Private Members
     private GameScreen activeScreen = null;
-
-    // Start is called before the first frame update
+    #endregion
+    
     private void Start()
     {
         foreach (GameScreen screen in screens)
@@ -22,12 +26,6 @@ public class ScreenHandler : MonoBehaviour
 
         mainScreen.ToggleScreen(true);
         activeScreen = mainScreen;
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-
     }
 
     public void SwitchScreen(GameScreen screen)

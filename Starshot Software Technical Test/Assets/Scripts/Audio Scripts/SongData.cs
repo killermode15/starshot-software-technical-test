@@ -11,7 +11,8 @@ public class SongData : ScriptableObject
     #endregion
 
     #region Serialized Private Members
-    [SerializeField] private AudioClip audioClip;
-    [SerializeField] private float audioBPM;
+    [Header("Song Properties")]
+    [SerializeField] private AudioClip audioClip = null;
+    [SerializeField] private float audioBPM = 0;
     #endregion
 }
