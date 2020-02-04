@@ -25,6 +25,10 @@ public class GameScreen : MonoBehaviour
     [SerializeField] private UnityEvent onScreenActivate = new UnityEvent();
     [SerializeField] private UnityEvent onScreenDeactivate = new UnityEvent();
 
+    [Header("Button Events")]
+    [Space(10)]
+    [SerializeField] private UnityEvent onBackButtonPressed = new UnityEvent();
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -34,7 +38,10 @@ public class GameScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            onBackButtonPressed.Invoke();
+        }
     }
 
     public void ToggleScreen(bool toggleVal)
