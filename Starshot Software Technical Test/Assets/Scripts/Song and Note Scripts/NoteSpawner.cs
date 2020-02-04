@@ -4,34 +4,45 @@ using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
+    #region Properties
+    public int NotesSpawned => noteCounter;
+    #endregion
+
     #region Serialized Private Members
-    
+
     [Header("Spawning Properties")]
-    [Space(10)]
     [SerializeField] private GameObject notePrefab = null;
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
-    [SerializeField] private SongHandler songHandler = null;
     [SerializeField] private bool isSpawning = false;
+
+    [Header("References")]
+    [Space(10)]
+    [SerializeField] private SongHandler songHandler = null;
 
     [Header("Note Properties")]
     [Space(10)]
-    [SerializeField] private int noteDensity = 1;
-    [SerializeField] private float noteSpeed = 1;
+    [SerializeField] private int startingNoteDensity = 1;
+    [SerializeField] private float startingNoteSpeed = 1;
     #endregion
 
     #region Private Members
     private float songTempo = 0;
     private float timeFromLastSpawn = 0;
     private float spawnTimer = 0;
+
+    private int noteDensity = 0;
+    private float noteSpeed = 0;
+    private int noteCounter = 0;
+
     private List<GameObject> notesSpawned = new List<GameObject>();
     #endregion
 
-    private int counter = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        noteDensity = startingNoteDensity;
+        noteSpeed = startingNoteSpeed;
     }
 
     private void OnValidate()
@@ -57,14 +68,13 @@ public class NoteSpawner : MonoBehaviour
             timeFromLastSpawn += songTempo;
 
             //Spawn note
-
             int randIndex = Random.Range(0, spawnPoints.Count);
             GameObject note = Instantiate(notePrefab, spawnPoints[randIndex]);
             notesSpawned.Add(note);
             note.transform.position = spawnPoints[randIndex].position;
 
-            note.GetComponent<Note>().Speed = (songHandler.SongTempo / noteDensity) * noteSpeed;
-            counter++;
+            note.GetComponent<Note>().Speed = songHandler.SongTempo;
+            noteCounter++;
         }
         else
         {
@@ -90,11 +100,10 @@ public class NoteSpawner : MonoBehaviour
         songTempo = 0;
         spawnTimer = 0;
 
-        noteDensity = 2;
-        noteSpeed = 2;
+        noteDensity = startingNoteDensity;
+        noteSpeed = startingNoteSpeed;
 
-        StopCoroutine(SpawningTimer_CR());
-        StopCoroutine(DifficultyTimer_CR());
+        StopAllCoroutines();
     }
 
     public void CleanupNotes()
@@ -109,6 +118,7 @@ public class NoteSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(songHandler.Clip.length - 3f);
         StopSpawning();
+        Debug.Log("STOPPED SPAWNING");
     }
 
 
@@ -127,7 +137,6 @@ public class NoteSpawner : MonoBehaviour
                 if (noteDensity < 10)
                 {
                     noteDensity += 2;
-                    noteSpeed += 0.5f;
                 }
                 else if (noteSpeed < 6)
                 {

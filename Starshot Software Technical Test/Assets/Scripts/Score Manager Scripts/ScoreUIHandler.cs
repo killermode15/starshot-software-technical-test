@@ -6,11 +6,16 @@ using UnityEngine;
 [System.Serializable]
 public class ScoreTypeColor
 {
+    #region Properties
     public ScoreType Type => scoreType;
     public Color TextColor => textColor;
+    #endregion
 
+    #region Serialized Private Members
+    [Header("Score Type Properties")]
     [SerializeField] private ScoreType scoreType = ScoreType.Great;
     [SerializeField] private Color textColor = Color.white;
+    #endregion
 }
 
 public class ScoreUIHandler : MonoBehaviour

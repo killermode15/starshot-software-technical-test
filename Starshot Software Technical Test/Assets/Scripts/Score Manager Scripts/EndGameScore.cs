@@ -32,12 +32,13 @@ public class RatingScore
 public class EndGameScore : MonoBehaviour
 {
     #region Serialized Private Members
-    [Header("References")]
+    [Header("Score References")]
     [SerializeField] private ScoreHandler scoreHandler = null;
 
     [Header("UI References")]
     [Space(10)]
     [SerializeField] private TextMeshProUGUI ratingText = null;
+    [SerializeField] private TextMeshProUGUI missScoreCount = null;
     [SerializeField] private TextMeshProUGUI badScoreCount = null;
     [SerializeField] private TextMeshProUGUI niceScoreCount = null;
     [SerializeField] private TextMeshProUGUI greatScoreCount = null;
@@ -60,6 +61,7 @@ public class EndGameScore : MonoBehaviour
         }
 
         ratingText.text = ratingLetter;
+        missScoreCount.text = scoreHandler.GetScoreTypeCount(ScoreType.Miss).ToString();
         badScoreCount.text = scoreHandler.GetScoreTypeCount(ScoreType.Bad).ToString();
         niceScoreCount.text = scoreHandler.GetScoreTypeCount(ScoreType.Nice).ToString();
         greatScoreCount.text = scoreHandler.GetScoreTypeCount(ScoreType.Great).ToString();
@@ -85,6 +87,6 @@ public class EndGameScore : MonoBehaviour
         // To avoid memory leaks
         Destroy(ss);
 
-        new NativeShare().AddFile(filePath).SetText("Hello world!").Share();
+        new NativeShare().AddFile(filePath).SetText("I scored " + scoreHandler.Score + "!").Share();
     }
 }

@@ -8,7 +8,9 @@ namespace EventSystem
     [CreateAssetMenu]
     public class GameEvent : ScriptableObject
     {
+        #region Private Properties
         private List<GameEventListener> listeners = new List<GameEventListener>();
+        #endregion
 
         public void Raise()
         {

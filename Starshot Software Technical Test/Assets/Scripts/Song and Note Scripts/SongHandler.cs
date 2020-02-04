@@ -17,7 +17,7 @@ public class SongHandler : MonoBehaviour
 
     [Header("References")]
     [Space(10)]
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameManager gameManager = null;
 
     [Header("Song Events")]
     [Space(10)]

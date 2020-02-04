@@ -17,23 +17,6 @@ public class TouchHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-#if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePos = Input.mousePosition;
-
-            float halfScreen = Screen.width / 2;
-            if (mousePos.x <= halfScreen)
-            {
-                onLeftSideTouched.Raise();
-            }
-            else
-            {
-                onRightSideTouched.Raise();
-            }
-        }
-#endif
-
         // Get all the touch inputs
         Touch[] touches = Input.touches;
 

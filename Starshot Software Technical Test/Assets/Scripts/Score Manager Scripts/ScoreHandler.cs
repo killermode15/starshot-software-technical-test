@@ -6,9 +6,10 @@ using UnityEngine.Events;
 
 public enum ScoreType
 {
-    Bad = 1, 
+    Miss = 0,
+    Bad = 1,
     Nice = 2,
-    Great = 4
+    Great = 4,
 }
 
 [System.Serializable]
@@ -44,15 +45,15 @@ public class ScoreHandler : MonoBehaviour
     #endregion
 
     #region Serialized Private Members
-    [SerializeField] private GameEvent onScoreUpdate = null;
+    [Header("Score Properties")]
+    [SerializeField] private int currentScore = 0;
+    [SerializeField] private int multiplier = 1;
+    [SerializeField] private int noteCount = 160;
     [SerializeField] private List<Score> scores = new List<Score>();
 
-    [SerializeField] private int noteCount = 160;
-
-    [SerializeField] private int currentScore = 0;
-    [SerializeField] private int highScore = 0;
-
-    [SerializeField] private int multiplier = 1;
+    [Header("Score Events")]
+    [Space(10)]
+    [SerializeField] private GameEvent onScoreUpdate = null;
     #endregion
 
     #region Private Members
@@ -87,7 +88,6 @@ public class ScoreHandler : MonoBehaviour
         if (multiplier >= 8)
             return;
         multiplier *= 2;
-
     }
 
     // Called when a NoteMissed event is raise
@@ -98,12 +98,28 @@ public class ScoreHandler : MonoBehaviour
         onScoreUpdate.Raise();
     }
 
+    public void AddMiss()
+    {
+        scores.Find(x => x.Type == ScoreType.Miss).AddScore();
+    }
+
+    public void ResetScore()
+    {
+        currentScore = 0;
+        totalNotesHit = 0;
+        foreach (Score score in scores)
+        {
+            score.Reset();
+        }
+        ResetMultiplierAndStreak();
+    }
+
     // Called when a NoteCaught event is raised
     public void AddStreak()
     {
         streak++;
 
-        if(streak % (10 * multiplier/2) == 0)
+        if (streak % (10 * multiplier / 2) == 0)
         {
             AddMultiplier();
         }
@@ -111,11 +127,6 @@ public class ScoreHandler : MonoBehaviour
 
     public int GetScoreTypeCount(ScoreType type)
     {
-        return scores.Find(x => x.Type == type).ScoreTypeCount; 
-    }
-
-    public void ResetNoteHit()
-    {
-        totalNotesHit = 0;
+        return scores.Find(x => x.Type == type).ScoreTypeCount;
     }
 }
