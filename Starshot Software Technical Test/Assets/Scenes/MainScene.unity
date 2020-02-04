@@ -13215,7 +13215,6 @@ GameObject:
   m_Component:
   - component: {fileID: 777914696}
   - component: {fileID: 777914697}
-  - component: {fileID: 777914698}
   m_Layer: 5
   m_Name: Main Menu Screen
   m_TagString: Untagged
@@ -13291,20 +13290,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &777914698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 777914695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d177c8544ff71bd4e92c884bf83fd06b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 1042797734}
-  muteButtonText: {fileID: 850486112}
 --- !u!1 &789528711
 GameObject:
   m_ObjectHideFlags: 0
@@ -15132,7 +15117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.6, y: 3.2}
+  m_AnchoredPosition: {x: -0.5999985, y: 3.2000008}
   m_SizeDelta: {x: -12.82, y: -15.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039440900
@@ -15311,7 +15296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScore: 0
   multiplier: 1
-  noteCount: 160
+  noteCount: 130
   scores:
   - scoreType: 0
   - scoreType: 1
@@ -21030,7 +21015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.2, y: 1.8}
+  m_AnchoredPosition: {x: -1.2000008, y: 1.7999992}
   m_SizeDelta: {x: -6.2731, y: -6.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281002863
