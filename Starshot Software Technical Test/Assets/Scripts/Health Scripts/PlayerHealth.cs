@@ -24,11 +24,18 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth = 0;
     #endregion
 
+    /// <summary>
+    /// Resets the current health to the max
+    /// </summary>
     public void ResetHealth()
     {
         currentHealth = maxHealth;
     }
 
+    /// <summary>
+    /// Reduces health by an amount
+    /// </summary>
+    /// <param name="amount">Amount to reduce from current health. Set to 10 by default.</param>
     public void ReduceHealth(int amount = 10)
     {
         if (amount <= 0)
@@ -40,10 +47,13 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = 0;
             onHealthFinished.Raise();
-            Debug.Log("Test");
         }
     }
 
+    /// <summary>
+    /// Adds health by an amount
+    /// </summary>
+    /// <param name="amount">Amount to increase to current health. Set to 5 by default</param>
     public void AddHealth(int amount = 5)
     {
         if (amount <= 0)

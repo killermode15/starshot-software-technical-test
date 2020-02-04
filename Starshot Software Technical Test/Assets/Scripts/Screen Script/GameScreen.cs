@@ -13,9 +13,12 @@ public enum ScreenType
 
 public class GameScreen : MonoBehaviour
 {
+    #region Properties
     public ScreenType ScreenType => screenType;
     public bool IsScreenActive => isScreenActive;
+    #endregion
 
+    #region Serialized Private Properties
     [Header("Screen Properties")]
     [SerializeField] private ScreenType screenType = ScreenType.Null;
     [SerializeField] private bool isScreenActive = false;
@@ -28,6 +31,7 @@ public class GameScreen : MonoBehaviour
     [Header("Button Events")]
     [Space(10)]
     [SerializeField] private UnityEvent onBackButtonPressed = new UnityEvent();
+    #endregion
 
     // Start is called before the first frame update
     private void Awake()
@@ -44,6 +48,10 @@ public class GameScreen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggles the current screen on or off
+    /// </summary>
+    /// <param name="toggleVal"></param>
     public void ToggleScreen(bool toggleVal)
     {
         isScreenActive = toggleVal;
@@ -58,14 +66,4 @@ public class GameScreen : MonoBehaviour
             onScreenDeactivate.Invoke();
         }
     }
-
-    //public void ActivateScreen()
-    //{
-
-    //}
-
-    //public void DeactiveScreen()
-    //{
-
-    //}
 }

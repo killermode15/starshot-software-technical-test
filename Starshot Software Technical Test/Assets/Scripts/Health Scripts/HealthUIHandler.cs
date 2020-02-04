@@ -13,9 +13,12 @@ public class HealthUIHandler : MonoBehaviour
 
     #endregion
     
+    /// <summary>
+    /// Updates the health UI bar
+    /// </summary>
     public void UpdateHealthUI()
     {
-        healthUI.fillAmount = healthScript.HealthPercent;/* Mathf.Lerp(healthUI.fillAmount, healthScript.HealthPercent, Time.deltaTime * 10);*/
+        healthUI.fillAmount = healthScript.HealthPercent;
     }
 
 }

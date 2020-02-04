@@ -27,7 +27,10 @@ public class TouchButton : MonoBehaviour
         notesDetected = new Queue<GameObject>(notes);
     }
 
-    // Checks if a note is on the circle
+    /// <summary>
+    /// Checks if a detected object is a note then adds it to the queue if its true
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Note"))
@@ -40,6 +43,11 @@ public class TouchButton : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// If the detected object is a note and has left the detection range,
+    /// it is removed from the queue.
+    /// </summary>
+    /// <param name="other"></param>
     // Checks if a note is out of the circle
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -54,7 +62,10 @@ public class TouchButton : MonoBehaviour
 
     }
 
-    // This is called when the button corresponding to the side of the screen is pressed
+    /// <summary>
+    /// Called when the button corresponding 
+    /// to the side of the screen is pressed.
+    /// </summary>
     public void OnCirclePressed()
     {
         vignetteAnimation.Play("Vignette");

@@ -9,6 +9,10 @@ public class AudioHandler : MonoBehaviour
     [SerializeField] private AudioManager audioManager = null;
     #endregion
 
+    /// <summary>
+    /// Plays a sound effect from the audio manager.
+    /// </summary>
+    /// <param name="identifier">An audio data's string id</param>
     public void PlaySFX(string identifier)
     {
         AudioSource source = audioManager.GetAudio(identifier).PlayAudio(destroyAfter: true);

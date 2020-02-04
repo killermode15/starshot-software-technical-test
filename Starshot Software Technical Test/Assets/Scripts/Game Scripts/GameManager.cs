@@ -1,6 +1,7 @@
 ﻿using EventSystem;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -56,6 +57,9 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
+    /// <summary>
+    /// Starts the game
+    /// </summary>
     public void StartGame()
     {
         // Return if game has already started
@@ -68,6 +72,9 @@ public class GameManager : MonoBehaviour
         onGameStart.Invoke();
     }
 
+    /// <summary>
+    /// Ends the game
+    /// </summary>
     public void EndGame()
     {
         // Return if the game has not started
@@ -80,11 +87,26 @@ public class GameManager : MonoBehaviour
         onGameEnd.Invoke();
     }
 
+    /// <summary>
+    /// Mutes/Unmutes the original audio
+    /// </summary>
     public void ToggleMute()
     {
         isGameMuted = !isGameMuted;
     }
+    
+    /// <summary>
+    /// Updates the mute button's text
+    /// </summary>
+    /// <param name="textMesh"></param>
+    public void UpdateMuteUI(TextMeshProUGUI textMesh)
+    {
+        textMesh.text = isGameMuted ? "Unmute" : "Mute";
+    }
 
+    /// <summary>
+    /// Exits the app
+    /// </summary>
     public void Quit()
     {
         Application.Quit();

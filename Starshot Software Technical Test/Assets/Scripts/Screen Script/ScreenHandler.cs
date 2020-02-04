@@ -28,6 +28,10 @@ public class ScreenHandler : MonoBehaviour
         activeScreen = mainScreen;
     }
 
+    /// <summary>
+    /// Switches between the current screen to a new screen
+    /// </summary>
+    /// <param name="screen">The screen to switch to</param>
     public void SwitchScreen(GameScreen screen)
     {
         activeScreen.ToggleScreen(false);

@@ -37,12 +37,19 @@ public class ScoreUIHandler : MonoBehaviour
     #endregion
 
 
+    /// <summary>
+    /// Updates the score and multiplier UI
+    /// </summary>
     public void UpdateScoreAndMultiplier()
     {
         scoreText.text = "Score: " + scoreHandler.Score;
         multiplierText.text = "Multiplier: " + scoreHandler.Multiplier + "x";
     }
 
+    /// <summary>
+    /// Show the score type when a note is caught
+    /// </summary>
+    /// <param name="scoreType"></param>
     public void ShowScoreType(ScoreType scoreType)
     {
         scoreTypeAnimator.SetTrigger("Activate");

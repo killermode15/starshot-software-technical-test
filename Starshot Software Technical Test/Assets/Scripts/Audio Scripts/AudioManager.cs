@@ -19,15 +19,22 @@ public class AudioData
 
     #region Serialized Private Members
     [Header("Audio Data Properties")]
-    [SerializeField] private string identifier;
-    [SerializeField, Range(0, 1)] private float volume;
+    [SerializeField] private string identifier = string.Empty;
+    [SerializeField, Range(0, 1)] private float volume = 0.75f;
     [SerializeField] private bool useSnapshot = false;
 
     [Header("Audio Data References")]
-    [SerializeField] private AudioClip audioClip;
-    [SerializeField] private AudioMixerSnapshot mixerSnapshot;
+    [SerializeField] private AudioClip audioClip = null;
+    [SerializeField] private AudioMixerSnapshot mixerSnapshot = null;
     #endregion
 
+
+    /// <summary>
+    /// Returns an audio source with the audio clip attached.
+    /// </summary>
+    /// <param name="play">Automatically play the audio source if true</param>
+    /// <param name="destroyAfter">Destroys the audio source after audio is played if true</param>
+    /// <returns></returns>
     public AudioSource PlayAudio(bool play = true, bool destroyAfter = false)
     {
         if (!UseSnapshot)
@@ -52,6 +59,10 @@ public class AudioData
         }
     }
 
+    /// <summary>
+    /// Plays an audio mixer snapshot
+    /// </summary>
+    /// <param name="timeToReach">Transition time between the current snapshot to this</param>
     public void PlaySnapshot(float timeToReach)
     {
         if (UseSnapshot)
@@ -68,8 +79,13 @@ public class AudioData
 [CreateAssetMenu(fileName = "Audio Manager")]
 public class AudioManager : ScriptableObject
 {
-    public List<AudioData> AudioData;
+    private List<AudioData> AudioData;
 
+    /// <summary>
+    /// Returns an audio data with the corresponding identifier
+    /// </summary>
+    /// <param name="identifier">The audio data's string id</param>
+    /// <returns></returns>
     public AudioData GetAudio(string identifier)
     {
         return AudioData.Find(x => x.Identifier.ToLower() == identifier.ToLower());
