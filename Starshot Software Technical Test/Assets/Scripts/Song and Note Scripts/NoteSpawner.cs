@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
-    #region Properties
-    public int NotesSpawned => noteCounter;
-    #endregion
-
     #region Serialized Private Members
 
     [Header("Spawning Properties")]
@@ -32,7 +28,6 @@ public class NoteSpawner : MonoBehaviour
 
     private int noteDensity = 0;
     private float noteSpeed = 0;
-    private int noteCounter = 0;
 
     private List<GameObject> notesSpawned = new List<GameObject>();
     #endregion
@@ -74,7 +69,6 @@ public class NoteSpawner : MonoBehaviour
             note.transform.position = spawnPoints[randIndex].position;
 
             note.GetComponent<Note>().Speed = songHandler.SongTempo;
-            noteCounter++;
         }
         else
         {
