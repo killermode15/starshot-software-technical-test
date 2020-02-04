@@ -84,4 +84,9 @@ public class GameManager : MonoBehaviour
     {
         isGameMuted = !isGameMuted;
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
